@@ -2,13 +2,13 @@
 import React from 'react';
 // importa o styled component específico para os...
 // ...parágrafos desta página:
-import { LoginPage } from './styled';
+import { Error404, ErrorMessage } from './styled';
 // Cria o componente "página de Login":
-export default function Login() {
+export default function NotFound() {
   return (
-    <LoginPage>
-      <h1> Você está na página de login!</h1>
-      <button type="button">Enviar</button>
-    </LoginPage>
+    <>
+      <Error404>404: NOT FOUND</Error404>
+      <ErrorMessage>this content is not available!</ErrorMessage>
+    </>
   );
 }
