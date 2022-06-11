@@ -4,10 +4,16 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 // Importa o prop-types
 import PropTypes from 'prop-types';
+// Importa o mensageiro do React-toastify:
+import { toast } from 'react-toastify';
 
+// "MyRoute" funciona como um middleware global...
+// ...que é executado antes de cada roteamento!
 export default function MyRoute({ component: Component, isClosed, ...rest }) {
   const isLoggedIn = false;
-
+  // Remove todas as mensagens do toastify:
+  toast.clearWaitingQueue();
+  toast.dismiss();
   // Se a rota for fechada e usuário não estiver logado:
   if (isClosed && !isLoggedIn) {
     // redirecione-o para a página de login:

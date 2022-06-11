@@ -9,7 +9,7 @@ export const Homepage = styled.section`
   h1 {
     text-align: center;
     font-size: 32px;
-    padding: 0 5px;
+    padding: 0 10px;
     color: antiquewhite;
   }
 `;

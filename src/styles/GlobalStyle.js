@@ -1,4 +1,7 @@
+// Permite estilização a nível global da página HTML:
 import { createGlobalStyle } from 'styled-components';
+// Ativa e permite estilização dos elementos do toastfy:
+import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
 
