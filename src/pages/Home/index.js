@@ -2,14 +2,13 @@
 import React from 'react';
 // importa o styled component específico para os...
 // ...parágrafos desta página:
-import { Error404, ErrorMessage } from './styled';
+import { Homepage } from './styled';
 
 // Cria o componente "página 404":
-export default function NotFound() {
+export default function Home() {
   return (
-    <>
-      <Error404>404: NOT FOUND</Error404>
-      <ErrorMessage>this content is not available!</ErrorMessage>
-    </>
+    <Homepage>
+      <h1>Bem vindo à página inicial!</h1>
+    </Homepage>
   );
 }

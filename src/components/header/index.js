@@ -14,7 +14,7 @@ export default function Header() {
       <Link to="/">
         <FaHome />
       </Link>
-      <Link to="/opcao1">opção1</Link>
+      <Link to="/login">Login</Link>
       <Link to="/opcao2">opção2</Link>
     </Navbar>
   );
