@@ -20,7 +20,7 @@ export default function Login() {
   // Trata eventos de clique no botão 'enviar':
   // eslint-disable-next-line no-unused-vars
   const handleClick = (event) => {
-    dispatch(loginActions.botaoClicado());
+    dispatch(loginActions.botaoClicadoRequest());
   };
 
   return (
