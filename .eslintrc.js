@@ -31,6 +31,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'default-param-last': 0,
     // 'react/state-in-constructor': 0,
     // 'react/forbid-prop-types': 0,
   },

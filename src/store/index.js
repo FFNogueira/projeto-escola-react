@@ -1,10 +1,7 @@
 import { legacy_createStore as createStore } from 'redux';
+// Importa o reducer combinado (rootReducer):
+import rootReducer from './modules/rootReducer';
 
-// eslint-disable-next-line no-unused-vars
-const reducer = (state, action) => {
-  return state;
-};
-
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 export default store;
