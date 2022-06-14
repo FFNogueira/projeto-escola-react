@@ -12,6 +12,14 @@ import Login from '../pages/Login';
 import Error404 from '../pages/404';
 // Importa a Home Page:
 import Home from '../pages/Home';
+// Importa a página do Aluno:
+import Aluno from '../pages/Aluno';
+// Importa a página da lista de Alunos:
+import Alunos from '../pages/Alunos';
+// Importa a página de registro:
+import Register from '../pages/Register';
+// Importa a página de uploads:
+import Uploads from '../pages/Uploads';
 
 // Esta função funcionará como roteador das páginas:
 export default function PagesRouter() {
@@ -19,8 +27,13 @@ export default function PagesRouter() {
   // Ao tentar-se abrir uma página que não existe (path="*"), será renderizada uma página 404:
   return (
     <Switch>
-      <MyRoute exact path="/" component={Home} />
-      <MyRoute exact path="/login" component={Login} />
+      <MyRoute exact path="/" component={Home} isClosed={false} />
+      <MyRoute exact path="/login" component={Login} isClosed={false} />
+      <MyRoute exact path="/Aluno/:id" component={Aluno} isClosed />
+      <MyRoute exact path="/Aluno" component={Aluno} isClosed />
+      <MyRoute exact path="/Alunos" component={Alunos} isClosed={false} />
+      <MyRoute exact path="/Register" component={Register} isClosed={false} />
+      <MyRoute exact path="/Uploads:/id" component={Uploads} isClosed />
       <MyRoute path="*" component={Error404} />
     </Switch>
   );

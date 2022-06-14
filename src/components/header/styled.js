@@ -32,5 +32,7 @@ export const Navbar = styled.header`
 
   @media (max-width: 640px) {
     padding: 13px 20px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 `;

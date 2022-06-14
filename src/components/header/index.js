@@ -15,7 +15,9 @@ export default function Header() {
         <FaHome />
       </Link>
       <Link to="/login">Login</Link>
-      <Link to="/opcao2">opção2</Link>
+      <Link to="/Register">Register</Link>
+      <Link to="/Aluno">Aluno</Link>
+      <Link to="/Alunos">Lista de Alunos</Link>
     </Navbar>
   );
 }
