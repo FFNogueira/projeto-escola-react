@@ -23,7 +23,7 @@ export default function Alunos() {
         // faz uma requisição GET à API na rota "/alunos":
         const res = await axios({
           method: 'get',
-          url: '/Alunos',
+          url: '/alunos',
           timeout: 7000, // only wait for 7s
         });
         // usando "setAlunoData" para setar a variável de estado "alunoData":
