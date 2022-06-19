@@ -1,13 +1,13 @@
 import * as types from '../types';
 
-export function botaoClicadoRequest() {
-  return { type: types.BOTAO_ENVIAR_REQUEST };
+export function loginRequest(token, username, id, email) {
+  return { type: types.LOGIN_SUCCESS, token, username, id, email };
 }
 
-export function botaoClicadoSuccess() {
-  return { type: types.BOTAO_ENVIAR_SUCCESS };
+export function acaoNaoImplementada1() {
+  return {};
 }
 
-export function botaoClicadoFail() {
-  return { type: types.BOTAO_ENVIAR_FAIL };
+export function acaoNaoImplementada2() {
+  return {};
 }

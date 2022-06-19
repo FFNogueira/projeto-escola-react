@@ -1,3 +1,3 @@
-export const BOTAO_ENVIAR_SUCCESS = 'BOTAO_ENVIAR_SUCCESS';
-export const BOTAO_ENVIAR_FAIL = 'BOTAO_ENVIAR_FAIL';
-export const BOTAO_ENVIAR_REQUEST = 'BOTAO_ENVIAR_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+// use DUMMY no arquivo "sagas.js" caso não queira utilizar sagas:
+export const DUMMY = 'DUMMY';

@@ -15,13 +15,13 @@ const requisicao = () =>
 function* exampleRequest() {
   try {
     yield call(requisicao);
-    yield put(loginActions.botaoClicadoSuccess());
+    yield put(loginActions.acaoNaoImplementada1());
   } catch (e) {
-    yield put(loginActions.botaoClicadoFail());
+    yield put(loginActions.acaoNaoImplementada2());
   }
 }
 
 // Exporta as requisições que serão escutadas pelo saga:
 // cada elemento do array dentro de "all" deve estar na forma...
 // ...takeLatest(string do sinal de requisição, função a ser chamada).
-export default all([takeLatest(types.BOTAO_ENVIAR_REQUEST, exampleRequest)]);
+export default all([takeLatest(types.DUMMY, exampleRequest)]);

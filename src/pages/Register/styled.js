@@ -30,12 +30,16 @@ export const Signup = styled.section`
     height: 30px;
     font-size: large;
     padding: 3px;
-  }
 
-  input::placeholder {
-    font-family: Quicksand, sans-serif;
-    font-style: italic;
-    font-size: large;
+    &::placeholder {
+      font-family: Quicksand, sans-serif;
+      font-style: italic;
+      font-size: large;
+    }
+
+    &:focus {
+      border: 2px solid #2a9d8f;
+    }
   }
 
   svg {
