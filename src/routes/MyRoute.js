@@ -6,9 +6,8 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // Importa o gerenciador de variáveis de estado global (useSelector):
 import { useSelector } from 'react-redux';
-// importa o decodificador de jwt:
-import { useJwt as JWT } from 'react-jwt';
-
+// importa meus módulos/funções:
+import isLogged from '../modules/isLogged';
 // "MyRoute" funciona como um middleware global...
 // ...que é executado antes de cada roteamento!
 export default function MyRoute({ component: Component, isClosed, ...rest }) {
@@ -17,17 +16,8 @@ export default function MyRoute({ component: Component, isClosed, ...rest }) {
   // DICA: "state.loginReducer" libera apenas as...
   // ...variáveis de estado global da página de login:
   const globalState = useSelector((state) => state.loginReducer);
-  // TENTA DECODIFICAR O TOKEN:
-  const { decodedToken, isExpired } = JWT(globalState.token);
-  // Verifica se o usuário está "supostamente" logado:
-  const isLoggedIn =
-    globalState.id &&
-    globalState.email &&
-    globalState.token &&
-    decodedToken?.id === globalState.id &&
-    decodedToken?.email === globalState.email &&
-    !isExpired;
-
+  // verifica se o usuário está logado:
+  const isLoggedIn = isLogged({ ...globalState });
   // Se a rota for fechada e usuário não estiver logado:
   if (isClosed && !isLoggedIn) {
     // redirecione-o para a página de login:

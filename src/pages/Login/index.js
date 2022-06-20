@@ -5,8 +5,6 @@ import { FaLock } from 'react-icons/fa';
 import { BiAt } from 'react-icons/bi';
 // Importa o sinalizador de ações do redux (useDispatch):
 import { useDispatch } from 'react-redux';
-// importa o mensageiro do toastify:
-import { toast } from 'react-toastify';
 // importa o redirecionador de páginas:
 import { useHistory } from 'react-router-dom';
 // importa o 'get' do lodash (evita a necessidade de validar props):
@@ -17,6 +15,8 @@ import * as loginActions from '../../store/modules/Login/actions';
 import { LoginPage } from './styled';
 // importa meu axios customizado:
 import axios from '../../services/axios';
+// importa meu mensageiro do toastify:
+import sendToast from '../../modules/sendToast';
 
 // Cria o componente "página de Login":
 export default function Login(props) {
@@ -53,16 +53,13 @@ export default function Login(props) {
         // Redireciona para a página anterior:
         history.push(prevPath);
       } catch (err) {
-        // Remove todas as mensagens do toastify:
-        toast.clearWaitingQueue();
-        toast.dismiss();
         if (err.response?.data?.errors) {
           const errorMessage = err.response.data.errors.reduce((acc, elem) => {
             return `${acc}${elem} *** `;
           }, '');
-          toast.error(errorMessage);
+          sendToast('error', errorMessage);
         } else {
-          toast.error('Não foi possível conectar-se à API!');
+          sendToast('error', 'Não foi possível conectar-se à API!');
         }
         console.log(err);
       }

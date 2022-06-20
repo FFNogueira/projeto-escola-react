@@ -1,7 +1,5 @@
 // Necessário sempre que se cria um componente:
 import React from 'react';
-// Importa o mensageio do react-toatify:
-import { toast } from 'react-toastify';
 // Importa alguns ícones do font-awesome do React:
 import { FaUser, FaLock } from 'react-icons/fa';
 import { BiAt } from 'react-icons/bi';
@@ -11,6 +9,8 @@ import { useHistory } from 'react-router-dom';
 import axios from '../../services/axios';
 // importa o styled component específico para esta página:
 import { Signup } from './styled';
+// importa meu mensageiro do toastify:
+import sendToast from '../../modules/sendToast';
 
 export default function Register() {
   const [email, setEmail] = React.useState('');
@@ -19,8 +19,7 @@ export default function Register() {
   const history = useHistory();
 
   // Remove todas as mensagens do toastify:
-  toast.clearWaitingQueue();
-  toast.dismiss();
+  sendToast();
 
   // Tenta registrar novos usuários:
   const handleForm = (e) => {
@@ -39,23 +38,18 @@ export default function Register() {
         });
 
         // se não houve erros na resposta da API:
-        // Remove todas as mensagens do toastify:
-        toast.clearWaitingQueue();
-        toast.dismiss();
-        toast.success('Registro efetuado com sucesso!');
+        sendToast('success', 'Registro efetuado com sucesso!');
         console.log(res.data); // DEBUG
         history.push('/login');
       } catch (err) {
         // Remove todas as mensagens do toastify:
-        toast.clearWaitingQueue();
-        toast.dismiss();
         if (err.response?.data?.errors) {
           const errorMessage = err.response.data.errors.reduce((acc, elem) => {
             return `${acc}${elem} *** `;
           }, '');
-          toast.error(errorMessage);
+          sendToast('error', errorMessage);
         } else {
-          toast.error('Não foi possível conectar-se à API!');
+          sendToast('error', 'Não foi possível conectar-se à API!');
         }
         console.log(err);
       }

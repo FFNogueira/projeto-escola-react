@@ -4,26 +4,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // importando ícones de edição e deleção:
 import { FaWindowClose, FaEdit } from 'react-icons/fa';
-// importanto o mensageiro toast:
-import { toast } from 'react-toastify';
+// importa meu mensageiro do toastify:
+import sendToast from '../../modules/sendToast';
 // importa o styled component específico para esta página:
 import { Page } from './styled';
 // importando axios para fazer requisições HTTP:
 import axios from '../../services/axios';
 
 export default function Alunos() {
-  // Remove todas as mensagens do toastify:
-  toast.clearWaitingQueue();
-  toast.dismiss();
-  toast.loading('Carregando dados do servidor...');
   // Cria uma variável de estado (alunoData) para os dados dos alunos...
   // Cria uma função (setAlunoData) que será invocada para alterar essa variável...
   // Utilizando o hooks "React.useState":
   const [alunoData, setAlunoData] = React.useState([]);
-  // Executa o hook "React.useEffect" sempre que o componente é renderizado na tela:
+  // Executa o hook "React.useEffect" uma única vez...
+  // ...imediatamente após o componente ser renderizado na tela:
   React.useEffect(() => {
     async function getAlunos() {
       try {
+        sendToast('loading', 'Carregando dados do servidor...');
         // faz uma requisição GET à API na rota "/alunos":
         const res = await axios({
           method: 'get',
@@ -33,10 +31,10 @@ export default function Alunos() {
         // usando "setAlunoData" para setar a variável de estado "alunoData":
         // "res.data" contém os dados propriamente ditos:
         setAlunoData(res.data);
+        // Remove todas as mensagens do toastify:
+        sendToast();
       } catch (err) {
-        toast.clearWaitingQueue();
-        toast.dismiss();
-        toast.error('Não foi possível carregar a lista de alunos');
+        sendToast('error', 'Não foi possível carregar a lista de alunos');
         console.log(err); // DEBUG
       }
     }
