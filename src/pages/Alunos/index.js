@@ -15,6 +15,7 @@ export default function Alunos() {
   // Remove todas as mensagens do toastify:
   toast.clearWaitingQueue();
   toast.dismiss();
+  toast.loading('Carregando dados do servidor...');
   // Cria uma variável de estado (alunoData) para os dados dos alunos...
   // Cria uma função (setAlunoData) que será invocada para alterar essa variável...
   // Utilizando o hooks "React.useState":
@@ -33,6 +34,8 @@ export default function Alunos() {
         // "res.data" contém os dados propriamente ditos:
         setAlunoData(res.data);
       } catch (err) {
+        toast.clearWaitingQueue();
+        toast.dismiss();
         toast.error('Não foi possível carregar a lista de alunos');
         console.log(err); // DEBUG
       }
