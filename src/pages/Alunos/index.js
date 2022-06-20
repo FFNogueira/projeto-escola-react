@@ -12,6 +12,9 @@ import { Page } from './styled';
 import axios from '../../services/axios';
 
 export default function Alunos() {
+  // Remove todas as mensagens do toastify:
+  toast.clearWaitingQueue();
+  toast.dismiss();
   // Cria uma variável de estado (alunoData) para os dados dos alunos...
   // Cria uma função (setAlunoData) que será invocada para alterar essa variável...
   // Utilizando o hooks "React.useState":
@@ -24,7 +27,7 @@ export default function Alunos() {
         const res = await axios({
           method: 'get',
           url: '/alunos',
-          timeout: 7000, // only wait for 7s
+          timeout: 10000, // only wait for 10s
         });
         // usando "setAlunoData" para setar a variável de estado "alunoData":
         // "res.data" contém os dados propriamente ditos:

@@ -32,6 +32,8 @@ export const LoginPage = styled.section`
     height: 30px;
     font-size: large;
     padding: 3px;
+    border-radius: 4px;
+    border: 2px solid #ddd;
 
     &::placeholder {
       font-family: Quicksand, sans-serif;

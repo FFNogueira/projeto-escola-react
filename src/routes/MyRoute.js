@@ -4,22 +4,38 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 // Importa o prop-types
 import PropTypes from 'prop-types';
-// Importa o mensageiro do React-toastify:
-import { toast } from 'react-toastify';
+// Importa o gerenciador de variáveis de estado global (useSelector):
+import { useSelector } from 'react-redux';
 
 // "MyRoute" funciona como um middleware global...
 // ...que é executado antes de cada roteamento!
 export default function MyRoute({ component: Component, isClosed, ...rest }) {
-  const isLoggedIn = false;
-  // Remove todas as mensagens do toastify:
-  toast.clearWaitingQueue();
-  toast.dismiss();
+  // "globalState" será um objeto onde cada propriedade...
+  // ...corresponde a uma variável de estado global:
+  // DICA: "state.loginReducer" libera apenas as...
+  // ...variáveis de estado global da página de login:
+  const globalState = useSelector((state) => state.loginReducer);
+  // Verifica se o usuário "supostamente" está logado...
+  // ...(ou seja, se existir token na sessão):
+  const isLoggedIn = globalState.token;
+
   // Se a rota for fechada e usuário não estiver logado:
   if (isClosed && !isLoggedIn) {
     // redirecione-o para a página de login:
     return (
       <Redirect
         to={{ pathname: '/login', state: { prevPath: rest.location.pathname } }}
+      />
+    );
+  }
+
+  // Se usuário já estiver logado, mas...
+  // estiver tentando acessar a página de login:
+  if (isLoggedIn && rest.location.pathname === '/login') {
+    // redirecione-o para a homepage:
+    return (
+      <Redirect
+        to={{ pathname: '/', state: { prevPath: rest.location.pathname } }}
       />
     );
   }

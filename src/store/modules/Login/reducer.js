@@ -13,8 +13,8 @@ const initialState = {
 // ...de certos componentes.
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case types.LOGIN_SUCCESS: {
-      console.log('login concluído com sucesso!');
+    case types.LOGIN_STATE_UPDATE: {
+      console.log('mudança no estado de login! :D');
       // copiando o estado antigo da aplicação...
       // ...visando criar um novo estado:
       const newState = { ...state };

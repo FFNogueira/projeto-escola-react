@@ -4,10 +4,13 @@ import React from 'react';
 import { FaLock } from 'react-icons/fa';
 import { BiAt } from 'react-icons/bi';
 // Importa o sinalizador de ações do redux (useDispatch):
-// Importa o gerenciador de variáveis de estado global (useSelector):
 import { useDispatch } from 'react-redux';
 // importa o mensageiro do toastify:
 import { toast } from 'react-toastify';
+// importa o redirecionador de páginas:
+import { useHistory } from 'react-router-dom';
+// importa o 'get' do lodash (evita a necessidade de validar props):
+import { get } from 'lodash';
 // importa as ações da página de login:
 import * as loginActions from '../../store/modules/Login/actions';
 // importa o styled component específico esta página:
@@ -16,13 +19,15 @@ import { LoginPage } from './styled';
 import axios from '../../services/axios';
 
 // Cria o componente "página de Login":
-export default function Login() {
+export default function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
+  const history = useHistory();
   // cria um sinalizador de ações do redux:
   const dispatch = useDispatch();
-
+  // variável contendo a página que o usuário...
+  // ...estava antes de ver a página de login:
+  const prevPath = get(props, 'location.state.prevPath', '/');
   // Trata a ação de tentar login:
   const handleForm = (e) => {
     async function getToken() {
@@ -31,21 +36,22 @@ export default function Login() {
           method: 'post',
           url: '/tokens',
           data: { email, password },
-          timeout: 7000,
+          timeout: 10000,
         });
 
         // Se o token for obtido com sucesso:
         // console.log(res.data); // DEBUG
         // guarda o token e username (como variáveis de estado global):
         dispatch(
-          loginActions.loginRequest(
+          loginActions.loginState(
             res.data.token,
             res.data.nome,
             res.data.id,
             res.data.email
           )
         );
-        // TODO: REDIRECIONAR PARA ALGUMA PÁGINA
+        // Redireciona para a página anterior:
+        history.push(prevPath);
       } catch (err) {
         // Remove todas as mensagens do toastify:
         toast.clearWaitingQueue();
@@ -68,7 +74,7 @@ export default function Login() {
 
   return (
     <LoginPage>
-      <h1>Loge-se para acessar todas as ferramentas!</h1>
+      <h1>Loge-se para acessar todas as opções!</h1>
       <form action="#" method="" onSubmit={handleForm}>
         <label htmlFor="email">
           <BiAt />

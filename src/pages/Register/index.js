@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 // Importa alguns ícones do font-awesome do React:
 import { FaUser, FaLock } from 'react-icons/fa';
 import { BiAt } from 'react-icons/bi';
+// Importa o hook redirecionar de páginas:
+import { useHistory } from 'react-router-dom';
 // Importando meu axios customizado:
 import axios from '../../services/axios';
 // importa o styled component específico para esta página:
@@ -14,7 +16,13 @@ export default function Register() {
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const history = useHistory();
 
+  // Remove todas as mensagens do toastify:
+  toast.clearWaitingQueue();
+  toast.dismiss();
+
+  // Tenta registrar novos usuários:
   const handleForm = (e) => {
     async function registerUser() {
       try {
@@ -27,7 +35,7 @@ export default function Register() {
             password,
             nome: username,
           },
-          timeout: 7000,
+          timeout: 10000,
         });
 
         // se não houve erros na resposta da API:
@@ -35,12 +43,8 @@ export default function Register() {
         toast.clearWaitingQueue();
         toast.dismiss();
         toast.success('Registro efetuado com sucesso!');
-        // Apaga os campos de email, senha, e usuário:
-        setEmail('');
-        document.querySelector('#password').value = '';
-        setPassword('');
-        setUsername('');
         console.log(res.data); // DEBUG
+        history.push('/login');
       } catch (err) {
         // Remove todas as mensagens do toastify:
         toast.clearWaitingQueue();

@@ -1,7 +1,7 @@
 import * as types from '../types';
 
-export function loginRequest(token, username, id, email) {
-  return { type: types.LOGIN_SUCCESS, token, username, id, email };
+export function loginState(token, username, id, email) {
+  return { type: types.LOGIN_STATE_UPDATE, token, username, id, email };
 }
 
 export function acaoNaoImplementada1() {
