@@ -8,10 +8,16 @@ export const Navbar = styled.header`
   display: flex;
   background-color: #2a9d8f;
 
-  a {
+  a,
+  button {
     background: none;
     color: antiquewhite;
     transition: color 200ms ease-in-out;
+  }
+
+  button {
+    margin: 0 0 0 20px;
+    padding: 0;
   }
 
   a:first-child {
@@ -22,7 +28,8 @@ export const Navbar = styled.header`
     margin-left: 20px;
   }
 
-  a:hover {
+  a:hover,
+  button:hover {
     color: orangered;
   }
 
