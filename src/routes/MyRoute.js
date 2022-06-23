@@ -17,7 +17,7 @@ export default function MyRoute({ component: Component, isClosed, ...rest }) {
   // ...variáveis de estado global da página de login:
   const globalState = useSelector((state) => state.loginReducer);
   // verifica se o usuário está logado:
-  const isLoggedIn = isLogged({ ...globalState });
+  const isLoggedIn = isLogged(globalState);
   // Se a rota for fechada e usuário não estiver logado:
   if (isClosed && !isLoggedIn) {
     // redirecione-o para a página de login:

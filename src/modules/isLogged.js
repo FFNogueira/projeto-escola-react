@@ -1,9 +1,10 @@
 // importa o decodificador de jwt:
-import { useJwt as JWT } from 'react-jwt';
+import { isExpired, decodeToken } from 'react-jwt';
 
 export default function isLogged(globalState) {
   // TENTA DECODIFICAR O TOKEN:
-  const { decodedToken, isExpired } = JWT(globalState.token);
+  const decodedToken = decodeToken(globalState.token);
+  const tokenExpired = isExpired(globalState.token);
   // Verifica se o usuário está "supostamente" logado:
   const isLoggedIn =
     globalState.id &&
@@ -11,7 +12,7 @@ export default function isLogged(globalState) {
     globalState.token &&
     decodedToken?.id === globalState.id &&
     decodedToken?.email === globalState.email &&
-    !isExpired;
+    !tokenExpired;
 
   return isLoggedIn;
 }

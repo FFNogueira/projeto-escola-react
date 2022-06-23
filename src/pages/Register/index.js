@@ -16,15 +16,19 @@ export default function Register() {
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [buttonEvents, setButtonEvents] = React.useState('all');
   const history = useHistory();
 
-  // Remove todas as mensagens do toastify:
-  sendToast();
+  React.useEffect(() => {
+    sendToast();
+  }, []);
 
   // Tenta registrar novos usuários:
   const handleForm = (e) => {
     async function registerUser() {
       try {
+        setButtonEvents('none');
+        sendToast('loading', 'registrando usuário...');
         // tenta fazer uma requisição POST à API na rota "/users":
         const res = await axios({
           method: 'post',
@@ -39,10 +43,12 @@ export default function Register() {
 
         // se não houve erros na resposta da API:
         sendToast('success', 'Registro efetuado com sucesso!');
+        setButtonEvents('all');
         console.log(res.data); // DEBUG
         history.push('/login');
       } catch (err) {
-        // Remove todas as mensagens do toastify:
+        setButtonEvents('all');
+
         if (err.response?.data?.errors) {
           const errorMessage = err.response.data.errors.reduce((acc, elem) => {
             return `${acc}${elem} *** `;
@@ -67,7 +73,6 @@ export default function Register() {
           <FaUser />
           <input
             id="username"
-            value={username}
             onChange={(e) => {
               setUsername(e.target.value);
             }}
@@ -80,7 +85,6 @@ export default function Register() {
           <input
             type="email"
             id="email"
-            value={email}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -98,7 +102,9 @@ export default function Register() {
             placeholder="Senha"
           />
         </label>
-        <button type="submit">registrar</button>
+        <button type="submit" style={{ pointerEvents: buttonEvents }}>
+          registrar
+        </button>
       </form>
     </Signup>
   );

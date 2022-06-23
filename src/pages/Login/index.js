@@ -22,6 +22,7 @@ import sendToast from '../../modules/sendToast';
 export default function Login(props) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [buttonEvents, setButtonEvents] = React.useState('all');
   const history = useHistory();
   // cria um sinalizador de ações do redux:
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ export default function Login(props) {
   const handleForm = (e) => {
     async function getToken() {
       try {
+        setButtonEvents('none');
+        sendToast('loading', 'logando...');
         const res = await axios({
           method: 'post',
           url: '/tokens',
@@ -50,9 +53,13 @@ export default function Login(props) {
             res.data.email
           )
         );
+        // limpa mensagens do toastify:
+        sendToast();
+        setButtonEvents('all');
         // Redireciona para a página anterior:
         history.push(prevPath);
       } catch (err) {
+        setButtonEvents('all');
         if (err.response?.data?.errors) {
           const errorMessage = err.response.data.errors.reduce((acc, elem) => {
             return `${acc}${elem} *** `;
@@ -78,7 +85,6 @@ export default function Login(props) {
           <input
             type="email"
             id="email"
-            value={email}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -96,7 +102,9 @@ export default function Login(props) {
             placeholder="Senha"
           />
         </label>
-        <button type="submit">entrar</button>
+        <button type="submit" style={{ pointerEvents: buttonEvents }}>
+          entrar
+        </button>
       </form>
     </LoginPage>
   );

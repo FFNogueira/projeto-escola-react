@@ -46,9 +46,12 @@ export default function Header() {
       <Link to="/Aluno">Novo Aluno</Link>
       <Link to="/Alunos">Lista de Alunos</Link>
       {userLogged ? (
-        <button type="button" onClick={handleLogout}>
-          <FaSignOutAlt />
-        </button>
+        <>
+          <Link to="/User">Editar conta</Link>
+          <button type="button" onClick={handleLogout}>
+            <FaSignOutAlt />
+          </button>
+        </>
       ) : (
         ''
       )}

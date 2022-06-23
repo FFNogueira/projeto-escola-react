@@ -20,6 +20,8 @@ import Alunos from '../pages/Alunos';
 import Register from '../pages/Register';
 // Importa a página de uploads:
 import Uploads from '../pages/Uploads';
+// Importa a página de edição de dados do usuário:
+import User from '../pages/User';
 
 // Esta função funcionará como roteador das páginas:
 export default function PagesRouter() {
@@ -29,6 +31,7 @@ export default function PagesRouter() {
     <Switch>
       <MyRoute exact path="/" component={Home} isClosed={false} />
       <MyRoute exact path="/login" component={Login} isClosed={false} />
+      <MyRoute exact path="/User" component={User} isClosed />
       <MyRoute exact path="/Aluno/:id/edit" component={Aluno} isClosed />
       <MyRoute exact path="/Aluno/:id/delete" component={Aluno} isClosed />
       <MyRoute exact path="/Aluno" component={Aluno} isClosed />
