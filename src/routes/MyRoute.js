@@ -28,15 +28,20 @@ export default function MyRoute({ component: Component, isClosed, ...rest }) {
     );
   }
 
-  // Se usuário já estiver logado, mas...
-  // estiver tentando acessar a página de login:
-  if (rest.location.pathname === '/login' && isLoggedIn) {
-    // redirecione-o para a homepage:
-    return (
-      <Redirect
-        to={{ pathname: '/', state: { prevPath: rest.location.pathname } }}
-      />
-    );
+  // Se usuário já estiver logado...
+  if (isLoggedIn) {
+    // Se estiver tentando acessar a página de login ou de registro de usuário:
+    if (
+      rest.location.pathname === '/login' ||
+      rest.location.pathname === '/Register'
+    ) {
+      // redirecione-o para a homepage:
+      return (
+        <Redirect
+          to={{ pathname: '/', state: { prevPath: rest.location.pathname } }}
+        />
+      );
+    }
   }
   // Se tudo estiver correto prossiga com o roteamento normal:
   // eslint-disable-next-line react/jsx-props-no-spreading

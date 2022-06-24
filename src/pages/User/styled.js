@@ -47,4 +47,23 @@ export const Edit = styled.section`
   svg {
     margin-right: 7px;
   }
+
+  button {
+    width: 100%;
+
+    &:nth-of-type(1) {
+      background-color: #07bc0cc7;
+      &:hover {
+        background-color: #07bc0c;
+      }
+    }
+
+    &:nth-of-type(2) {
+      background-color: #e74c3cc7;
+      margin-top: 0;
+      &:hover {
+        background-color: #e74c3c;
+      }
+    }
+  }
 `;

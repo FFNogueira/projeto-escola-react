@@ -31,6 +31,8 @@ export default function Header() {
   const handleLogout = () => {
     // apaga todos os dados de login:
     dispatch(loginActions.loginState(null, null, null, null));
+    // mostra link de login e esconde botão de logout:
+    setUserLogged(false);
     // redireciona para a página de login:
     history.push('/login');
   };
@@ -42,7 +44,6 @@ export default function Header() {
         <FaHome />
       </Link>
       {userLogged ? '' : <Link to="/login">Login</Link>}
-      <Link to="/Register">Registre-se</Link>
       <Link to="/Aluno">Novo Aluno</Link>
       <Link to="/Alunos">Lista de Alunos</Link>
       {userLogged ? (
@@ -53,7 +54,7 @@ export default function Header() {
           </button>
         </>
       ) : (
-        ''
+        <Link to="/Register">Registre-se</Link>
       )}
     </Navbar>
   );

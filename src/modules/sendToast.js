@@ -23,6 +23,10 @@ export default function sendToast(type, message) {
       toast.info(message);
       break;
 
+    case 'warning':
+      toast.warning(message);
+      break;
+
     default:
   }
 }

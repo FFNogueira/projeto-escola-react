@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // importa o styled component específico para esta página:
 import { Edit } from './styled';
-// importa meus módulos/funções:
-// import isLogged from '../../modules/isLogged';
 // importa as ações da página de login:
 import * as loginActions from '../../store/modules/Login/actions';
 // importa meu axios customizado:
@@ -16,34 +14,35 @@ import axios from '../../services/axios';
 import sendToast from '../../modules/sendToast';
 
 export default function User() {
+  // variáveis de estado global da página de login:
+  const globalState = useSelector((state) => state.loginReducer);
+  // variáveis de estado:
   const [email, setEmail] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [buttonEvents, setButtonEvents] = React.useState('all');
   const [buttonDelete, setButtonDelete] = React.useState(false);
   const [buttonEdit, setButtonEdit] = React.useState(false);
-  // variáveis de estado global da página de login:
-  const globalState = useSelector((state) => state.loginReducer);
+
   // Sinalizador de ações:
   const dispatch = useDispatch();
-  // auxiliar para saber se usuário está logado:
-  // const isLoggedIn = isLogged(globalState);
   // Redirecionador de páginas:
   const history = useHistory();
+
   // Efeitos a serem executados caso botão de salvar seja pressionado
   React.useEffect(() => {
     async function updateUser() {
       try {
-        // if (!isLoggedIn) throw new Error('usuário não logado');
+        // Filtra os campos que o usuário quis editar:
+        const myData = {};
+        if (email.length > 0) myData.email = email;
+        if (password.length > 0) myData.password = password;
+        if (username.length > 0) myData.nome = username;
         // tenta atualizar o usuário:
         await axios({
           method: 'put',
           url: '/users',
-          data: {
-            email,
-            password,
-            nome: username,
-          },
+          data: myData,
           headers: {
             Authorization: `Bearer ${globalState.token}`,
           },
@@ -74,13 +73,6 @@ export default function User() {
         console.log(err);
         setButtonEvents('all');
         setButtonEdit(false);
-
-        // se as informações de login do usuário não forem coerentes:
-        // if (!isLoggedIn) {
-        //   sendToast('error', 'Operação proibida! Você não está logado! ');
-        //   dispatch(loginActions.loginState(null, null, null, null));
-        //   history.push('/login');
-        // }
 
         // Token inválido/expirado:
         if (err.response?.status === 401) {
@@ -136,13 +128,6 @@ export default function User() {
         setButtonEvents('all');
         setButtonDelete(false);
 
-        // se as informações de login do usuário não forem coerentes:
-        // if (!isLoggedIn) {
-        //   sendToast('error', 'Operação proibida! Você não está logado! ');
-        //   dispatch(loginActions.loginState(null, null, null, null));
-        //   history.push('/login');
-        // }
-
         // Token inválido/expirado:
         if (err.response?.status === 401) {
           sendToast('info', 'Sessão expirada, faça login!');
@@ -183,6 +168,7 @@ export default function User() {
             }}
             type="text"
             placeholder="Nome de usuário"
+            defaultValue={globalState.username}
           />
         </label>
         <label htmlFor="email">
@@ -193,6 +179,7 @@ export default function User() {
               setEmail(e.target.value);
             }}
             placeholder="E-mail"
+            defaultValue={globalState.email}
           />
         </label>
         <label htmlFor="password">
