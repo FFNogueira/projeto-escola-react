@@ -38,6 +38,14 @@ export default function User() {
         if (email.length > 0) myData.email = email;
         if (password.length > 0) myData.password = password;
         if (username.length > 0) myData.nome = username;
+        // Se o usuário não fez modificação alguma:
+        if (Object.keys(myData).length === 0) {
+          // libera eventos dos botões
+          setButtonEvents('all');
+          setButtonEdit(false);
+          return;
+        }
+
         // tenta atualizar o usuário:
         await axios({
           method: 'put',
@@ -49,26 +57,18 @@ export default function User() {
           timeout: 10000,
         });
 
-        // Cria um novo token
-        const res = await axios({
-          method: 'post',
-          url: '/tokens',
-          data: { email, password },
-          timeout: 10000,
-        });
-
-        dispatch(
-          loginActions.loginState(
-            res.data.token,
-            res.data.nome,
-            res.data.id,
-            res.data.email
-          )
+        // Avisa que a alteração de dados foi um sucesso:
+        sendToast(
+          'info',
+          'Você alterou seus dados! Por favor, loge-se novamente!'
         );
-
-        sendToast('success', 'Usuário atualizado com sucesso! ');
+        // limpa as variáveis de estado global da página de login:
+        dispatch(loginActions.loginState(null, null, null, null));
+        // libera os eventos dos botões:
         setButtonEvents('all');
         setButtonEdit(false);
+        // redireciona para a página de login:
+        history.push('/login');
       } catch (err) {
         console.log(err);
         setButtonEvents('all');

@@ -9,9 +9,9 @@ export const Navbar = styled.header`
   background-color: #2a9d8f;
 
   p {
+    font-family: 'Roboto', sans-serif;
     position: absolute;
-    margin-left: -45px;
-    margin-top: 8px;
+    margin-top: 70px;
     background-color: #61616196;
     border-radius: 3px;
     padding: 5px;
@@ -32,16 +32,22 @@ export const Navbar = styled.header`
   }
 
   button {
-    margin: 0 0 0 25px;
+    margin: 0;
     padding: 0;
   }
 
-  div:nth-of-type(1) {
-    margin: 0 auto 0 0;
-  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &:nth-of-type(1) {
+      margin: 0 auto 0 0;
+    }
 
-  div:not(:nth-of-type(1)) {
-    margin-left: 25px;
+    &:not(:nth-of-type(1)) {
+      margin-left: 25px;
+    }
   }
 
   a:hover,
