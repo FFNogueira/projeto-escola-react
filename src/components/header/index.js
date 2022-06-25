@@ -1,6 +1,14 @@
 import React from 'react';
-// Importa um ícone do react-icons font-awesome:
-import { FaHome, FaSignOutAlt } from 'react-icons/fa';
+// Importa ícones do react-icons:
+import {
+  FaHome,
+  FaSignInAlt,
+  FaUniversity,
+  FaUserEdit,
+  FaUserPlus,
+} from 'react-icons/fa';
+import { IoIosSchool } from 'react-icons/io';
+import { ImExit } from 'react-icons/im';
 // Importa o uso de links pelo react-router-dom:
 import { Link, useHistory } from 'react-router-dom';
 // importa o gerenciador de variáveis de estado globais:
@@ -40,22 +48,64 @@ export default function Header() {
   // DICA: o elemento <Link to> é, na verdade, um elemento HTML <a>
   return (
     <Navbar>
-      <Link to="/">
-        <FaHome />
-      </Link>
-      {userLogged ? '' : <Link to="/login">Login</Link>}
-      <Link to="/Aluno">Novo Aluno</Link>
-      <Link to="/Alunos">Lista de Alunos</Link>
-      {userLogged ? (
-        <>
-          <Link to="/User">Editar conta</Link>
-          <button type="button" onClick={handleLogout}>
-            <FaSignOutAlt />
-          </button>
-        </>
-      ) : (
-        <Link to="/Register">Registre-se</Link>
-      )}
+      <div>
+        <Link to="/">
+          <FaHome />
+        </Link>
+        <p>Página inicial</p>
+      </div>
+      <div>
+        {userLogged ? (
+          <>
+            <Link to="/Aluno">
+              <IoIosSchool />
+            </Link>
+            <p>Novo aluno</p>
+          </>
+        ) : (
+          <>
+            <Link to="/login">
+              <FaSignInAlt />
+            </Link>
+            <p>Fazer login</p>
+          </>
+        )}
+      </div>
+      <div>
+        <Link to="/Alunos">
+          <FaUniversity />
+        </Link>
+        <p>Todos os alunos</p>
+      </div>
+      <div>
+        {userLogged ? (
+          <>
+            <Link to="/User">
+              <FaUserEdit />
+            </Link>
+            <p>Editar usuário</p>
+          </>
+        ) : (
+          <>
+            <Link to="/Register">
+              <FaUserPlus />
+            </Link>
+            <p>Registrar usuário</p>
+          </>
+        )}
+      </div>
+      <div>
+        {userLogged ? (
+          <>
+            <button type="button" onClick={handleLogout}>
+              <ImExit />
+            </button>
+            <p>Encerrar sessão</p>
+          </>
+        ) : (
+          ''
+        )}
+      </div>
     </Navbar>
   );
 }
