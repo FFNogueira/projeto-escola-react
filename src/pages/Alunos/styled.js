@@ -32,19 +32,32 @@ export const Page = styled.section`
     display: flex;
     justify-content: flex-end;
     align-items: center;
-  }
+    a {
+      color: #3498db;
+    }
 
-  .options a {
-    color: #3498db;
-    margin-right: 5px;
-  }
+    button {
+      color: #e74c3c;
+      background-color: transparent;
+    }
 
-  .options a:nth-of-type(2) {
-    color: #e74c3c;
-  }
+    a,
+    button {
+      margin: 0 5px 0 0;
+      padding: 0;
+      &:nth-of-type(2) {
+        color: #e74c3c;
+      }
 
-  .options a:hover {
-    color: #264653;
+      &:hover {
+        color: #264653;
+      }
+    }
+
+    svg {
+      width: 16px;
+      height: 20px;
+    }
   }
 
   .profile {

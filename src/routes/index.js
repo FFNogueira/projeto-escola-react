@@ -33,7 +33,6 @@ export default function PagesRouter() {
       <MyRoute exact path="/login" component={Login} isClosed={false} />
       <MyRoute exact path="/User" component={User} isClosed />
       <MyRoute exact path="/Aluno/:id/edit" component={Aluno} isClosed />
-      <MyRoute exact path="/Aluno/:id/delete" component={Aluno} isClosed />
       <MyRoute exact path="/Aluno" component={Aluno} isClosed />
       <MyRoute exact path="/Alunos" component={Alunos} isClosed={false} />
       <MyRoute exact path="/Register" component={Register} isClosed={false} />
