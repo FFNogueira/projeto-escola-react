@@ -26,8 +26,6 @@ export default function Alunos() {
   const [alunoData, setAlunoData] = React.useState([]);
   // estado dos eventos de click com o mouse sobre links/botões:
   const [clickEvents, setClickEvents] = React.useState('all');
-  // sinalizador de atualização de dados dos alunos:
-  const [refreshData, setRefreshData] = React.useState(true);
   // Executa o hook "React.useEffect" uma única vez...
   // ...imediatamente após o componente ser renderizado na tela:
   React.useEffect(() => {
@@ -51,7 +49,7 @@ export default function Alunos() {
       }
     }
     getAlunos();
-  }, [refreshData]);
+  }, []);
 
   // trata a deleção de alunos:
   async function handleDeleteAluno(e) {
@@ -74,7 +72,12 @@ export default function Alunos() {
       // reativa clicks do mouse:
       setClickEvents('all');
       // atualiza os dados mostrados:
-      setRefreshData(!refreshData);
+      setAlunoData(
+        alunoData.filter((elem) => {
+          return String(elem.id) !== String(alunoId);
+        })
+      );
+      sendToast('success', 'Operação concluída!');
     } catch (err) {
       // libera os eventos por clique do mouse:
       setClickEvents('all');
@@ -101,7 +104,7 @@ export default function Alunos() {
 
   return (
     <Page>
-      <h1>Bem vindo à lista de todos os Alunos!</h1>
+      <h1>Lista de todos os alunos</h1>
       <div className="lista">
         {alunoData.map((elem) => {
           return (
