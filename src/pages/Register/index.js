@@ -50,10 +50,10 @@ export default function Register() {
         setButtonEvents('all');
 
         if (err.response?.data?.errors) {
-          const errorMessage = err.response.data.errors.reduce((acc, elem) => {
-            return `${acc}${elem} *** `;
-          }, '');
-          sendToast('error', errorMessage);
+          const errorMessage = err.response.data.errors.map((elem) => {
+            return <p key={elem}>{`*${elem}`}</p>;
+          });
+          sendToast('error', <div>{errorMessage}</div>);
         } else {
           sendToast('error', 'Não foi possível conectar-se à API!');
         }

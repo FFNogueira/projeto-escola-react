@@ -82,10 +82,10 @@ export default function User() {
         }
         // Mensagens de erro enviadas pela API:
         else if (err.response?.data?.errors) {
-          const errorMessage = err.response.data.errors.reduce((acc, elem) => {
-            return `${acc}${elem} *** `;
-          }, '');
-          sendToast('error', errorMessage);
+          const errorMessage = err.response.data.errors.map((elem) => {
+            return <p key={elem}>{`*${elem}`}</p>;
+          });
+          sendToast('error', <div>{errorMessage}</div>);
         }
         // Se houve erro de conexão:
         else {

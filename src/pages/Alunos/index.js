@@ -44,7 +44,7 @@ export default function Alunos() {
         // Remove todas as mensagens do toastify:
         sendToast();
       } catch (err) {
-        sendToast('error', 'Não foi possível carregar a lista de alunos');
+        sendToast('error', 'Não foi possível conectar-se à API!');
         console.log(err); // DEBUG
       }
     }
@@ -90,10 +90,10 @@ export default function Alunos() {
       }
       // Mensagens de erro enviadas pela API:
       else if (err.response?.data?.errors) {
-        const errorMessage = err.response.data.errors.reduce((acc, elem) => {
-          return `${acc}${elem} *** `;
-        }, '');
-        sendToast('error', errorMessage);
+        const errorMessage = err.response.data.errors.map((elem) => {
+          return <p key={elem}>{`*${elem}`}</p>;
+        });
+        sendToast('error', <div>{errorMessage}</div>);
       }
       // Se houve erro de conexão:
       else {
@@ -152,15 +152,15 @@ export default function Alunos() {
                   </p>
                   <p>
                     <span>Altura: </span>
-                    {elem.altura}
+                    {elem.altura > 0 ? elem.altura : ''}
                   </p>
                   <p>
                     <span>Peso: </span>
-                    {elem.peso}
+                    {elem.peso > 0 ? elem.peso : ''}
                   </p>
                   <p>
                     <span>Idade: </span>
-                    {elem.idade}
+                    {elem.idade > 0 ? elem.idade : ''}
                   </p>
                 </div>
               </div>

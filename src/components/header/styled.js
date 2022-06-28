@@ -53,7 +53,7 @@ export const Navbar = styled.header`
   a:hover,
   button:hover {
     color: orangered;
-
+    background: none;
     & + p {
       visibility: visible;
       opacity: 100;

@@ -21,7 +21,7 @@ export default createGlobalStyle`
      height: 100%;
    }
 
-   button {
+   button:not(.Toastify__close-button) {
      cursor: pointer;
      border: none;
      background-color: #E76F51;
@@ -31,11 +31,12 @@ export default createGlobalStyle`
      transition: background-color 200ms ease-in-out;
      font-weight: 700;
      margin: 10px auto;
-   }
 
-   button:hover{
+     &:hover{
     background-color: #fb5127;
    }
+   }
+
 
    svg {
      pointer-events: none;
