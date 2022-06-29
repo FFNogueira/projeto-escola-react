@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // Necessário sempre que se cria um componente:
 import React from 'react';
 // Importa o sinalizador de ações do redux (useDispatch):
@@ -111,7 +112,14 @@ export default function Alunos() {
             <div key={elem.email} className="aluno">
               <div className="options">
                 <Link
-                  to={`/Aluno/${elem.id}/edit`}
+                  // eslint-disable-next-line prettier/prettier
+                  to={`/Aluno/edit/${elem.id
+                    }/${elem.email
+                    }/${elem.nome
+                    }/${elem.sobrenome === '' ? ' ' : elem.sobrenome
+                    }/${elem.idade > 0 ? elem.idade : ' '
+                    }/${elem.peso > 0 ? elem.peso : ' '
+                    }/${elem.altura > 0 ? elem.altura : ' '}`}
                   style={{ pointerEvents: clickEvents }}
                   tabIndex={clickEvents === 'all' ? 0 : -1}
                 >

@@ -12,8 +12,10 @@ import Login from '../pages/Login';
 import Error404 from '../pages/404';
 // Importa a Home Page:
 import Home from '../pages/Home';
-// Importa a página do Aluno:
+// Importa a página de criação de Alunos:
 import Aluno from '../pages/Aluno';
+// Importa a página de edição de Aluno:
+import AlunoEdit from '../pages/AlunoEdit';
 // Importa a página da lista de Alunos:
 import Alunos from '../pages/Alunos';
 // Importa a página de registro:
@@ -33,6 +35,12 @@ export default function PagesRouter() {
       <MyRoute exact path="/login" component={Login} isClosed={false} />
       <MyRoute exact path="/User" component={User} isClosed />
       <MyRoute exact path="/Aluno" component={Aluno} isClosed />
+      <MyRoute
+        exact
+        path="/Aluno/edit/:id/:email/:name/:surname/:age/:weight/:height"
+        component={AlunoEdit}
+        isClosed
+      />
       <MyRoute exact path="/Alunos" component={Alunos} isClosed={false} />
       <MyRoute exact path="/Register" component={Register} isClosed={false} />
       <MyRoute exact path="/Uploads:/id" component={Uploads} isClosed />
