@@ -119,7 +119,10 @@ export default function Alunos() {
                     }/${elem.sobrenome === '' ? ' ' : elem.sobrenome
                     }/${elem.idade > 0 ? elem.idade : ' '
                     }/${elem.peso > 0 ? elem.peso : ' '
-                    }/${elem.altura > 0 ? elem.altura : ' '}`}
+                    }/${elem.altura > 0 ? elem.altura : ' '
+                    }/${elem.Uploads?.length > 0 ?
+                      elem.Uploads[elem.Uploads.length - 1].file_name : 'userProfile.png'
+                    }`}
                   style={{ pointerEvents: clickEvents }}
                   tabIndex={clickEvents === 'all' ? 0 : -1}
                 >
@@ -138,8 +141,8 @@ export default function Alunos() {
               <div className="profile">
                 <img
                   src={
-                    elem.Uploads[0]?.url
-                      ? elem.Uploads[0].url
+                    elem.Uploads?.length > 0
+                      ? elem.Uploads[elem.Uploads.length - 1].url
                       : 'http://192.168.0.9/images/userProfile.png'
                   }
                   alt="foto do aluno"

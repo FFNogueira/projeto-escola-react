@@ -51,4 +51,38 @@ export const Page = styled.section`
   button {
     width: 100%;
   }
+
+  .foto {
+    color: aliceblue;
+    border-radius: 5px;
+    border: 3px dashed #e76f51;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    &:hover {
+      color: #fb5127;
+    }
+
+    & input {
+      display: none;
+    }
+
+    & img {
+      max-width: 104px;
+      height: auto;
+      padding: 2px;
+    }
+
+    & svg {
+      margin: 0;
+      position: absolute;
+      padding: 3px;
+      width: 22px;
+      height: 22px;
+      align-self: flex-end;
+    }
+  }
 `;

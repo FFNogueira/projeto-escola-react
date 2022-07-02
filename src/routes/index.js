@@ -37,7 +37,7 @@ export default function PagesRouter() {
       <MyRoute exact path="/Aluno" component={Aluno} isClosed />
       <MyRoute
         exact
-        path="/Aluno/edit/:id/:email/:name/:surname/:age/:weight/:height"
+        path="/Aluno/edit/:id/:email/:name/:surname/:age/:weight/:height/:photo"
         component={AlunoEdit}
         isClosed
       />

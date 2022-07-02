@@ -2,7 +2,7 @@
 // Necessário sempre que se cria um componente:
 import React from 'react';
 // ícones do react:
-import { FaUser, FaHashtag, FaHourglassHalf } from 'react-icons/fa';
+import { FaUser, FaHashtag, FaHourglassHalf, FaEdit } from 'react-icons/fa';
 import { BiAt } from 'react-icons/bi';
 import { GiWeight, GiBodyHeight } from 'react-icons/gi';
 // importa o disparadorde ações:
@@ -24,7 +24,7 @@ export default function AlunoEdit() {
   // variáveis de estado global da página de login:
   const globalState = useSelector((state) => state.loginReducer);
   // capturnando os parâmetros de URL:
-  const { id, email, name, surname, age, weight, height } = useParams();
+  const { id, email, name, surname, age, weight, height, photo } = useParams();
   // variáveis de estado local:
   const [nome, setNome] = React.useState(name);
   const [sobrenome, setSobrenome] = React.useState(surname);
@@ -32,6 +32,8 @@ export default function AlunoEdit() {
   const [idade, setIdade] = React.useState(age);
   const [peso, setPeso] = React.useState(weight);
   const [altura, setAltura] = React.useState(height);
+  const [foto, setFoto] = React.useState(null);
+  const [lastFoto, setLastFoto] = React.useState(photo);
   const [clickEvents, setClickEvents] = React.useState('all');
 
   async function handleAlunoEdit(e) {
@@ -64,9 +66,31 @@ export default function AlunoEdit() {
           email: mail,
         },
       });
+
+      // Tenta adicionar uma foto ao formulário:
+      if (foto) {
+        // Cria um novo objeto formdata:
+        const formData = new FormData();
+        // Tenta adicionar uma foto à formData:
+        formData.append('file', foto);
+        // Tenta enviar a foto:
+        const res = await axios({
+          method: 'post',
+          url: `/uploads/${id}`,
+          timeout: 10000, // only wait for 10s
+          data: formData,
+          headers: {
+            Authorization: `Bearer ${globalState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        setLastFoto(res.data.file_name);
+      }
+
       // Dados Salvos com sucesso:
       sendToast('success', 'Salvo!');
       setClickEvents('all');
+      setFoto(null);
     } catch (err) {
       // Reativa clicks do mouse sobre o botão:
       setClickEvents('all');
@@ -95,6 +119,25 @@ export default function AlunoEdit() {
     <Page>
       <h1>Editar aluno</h1>
       <form action="#" method="" onSubmit={handleAlunoEdit}>
+        <label htmlFor="foto" className="foto">
+          <img
+            src={
+              foto
+                ? URL.createObjectURL(foto)
+                : `http://192.168.0.9/images/${lastFoto}`
+            }
+            alt="foto do aluno"
+            crossOrigin="anonymous"
+          />
+          <FaEdit />
+          <input
+            id="foto"
+            type="file"
+            onChange={(e) => {
+              setFoto(e.target.files[0]);
+            }}
+          />
+        </label>
         <label htmlFor="name">
           <FaUser />
           <input

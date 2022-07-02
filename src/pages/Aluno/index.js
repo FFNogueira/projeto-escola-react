@@ -2,7 +2,7 @@
 // Necessário sempre que se cria um componente:
 import React from 'react';
 // ícones do react:
-import { FaUser, FaHashtag, FaHourglassHalf } from 'react-icons/fa';
+import { FaUser, FaHashtag, FaHourglassHalf, FaEdit } from 'react-icons/fa';
 import { BiAt } from 'react-icons/bi';
 import { GiWeight, GiBodyHeight } from 'react-icons/gi';
 // importa o disparadorde ações:
@@ -32,6 +32,7 @@ export default function Aluno() {
   const [height, setHeight] = React.useState('');
   const [age, setAge] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [foto, setFoto] = React.useState(null);
   // =========================================
   // ========== ENVIO DO FORMULÁRIO ==========
   // =========================================
@@ -50,7 +51,7 @@ export default function Aluno() {
         Number(age),
       ];
       // Tenta criar o novo aluno:
-      await axios({
+      const res = await axios({
         method: 'post',
         url: '/alunos',
         timeout: 10000, // only wait for 10s
@@ -66,6 +67,27 @@ export default function Aluno() {
           Authorization: `Bearer ${globalState.token}`,
         },
       });
+
+      console.log('ID do novo aluno:', res.data.id); // DEBUG
+
+      // Tenta adicionar uma foto ao formulário:
+      if (foto) {
+        // Cria um novo objeto formdata:
+        const formData = new FormData();
+        // Tenta adicionar uma foto à formData:
+        formData.append('file', foto);
+        // Tenta enviar a foto:
+        await axios({
+          method: 'post',
+          url: `/uploads/${res.data.id}`,
+          timeout: 10000, // only wait for 10s
+          data: formData,
+          headers: {
+            Authorization: `Bearer ${globalState.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+      }
       // Aluno criado com sucesso:
       sendToast('success', 'Aluno registrado com sucesso!');
       setClickEvents('all');
@@ -76,6 +98,7 @@ export default function Aluno() {
       setAge('');
       setSurname('');
       setEmail('');
+      setFoto(null);
     } catch (err) {
       // Reativa clicks do mouse sobre o botão:
       setClickEvents('all');
@@ -103,7 +126,26 @@ export default function Aluno() {
   return (
     <NovoAluno>
       <h1>Novo aluno</h1>
+
       <form action="#" method="" onSubmit={handleNewAluno}>
+        <label htmlFor="foto" className="foto">
+          <img
+            src={
+              foto
+                ? URL.createObjectURL(foto)
+                : 'https://drive.google.com/uc?export=view&id=1NhERrFdZvBQ2y0no_kqKMBt0MqDjNGNG'
+            }
+            alt="foto do aluno"
+          />
+          <FaEdit />
+          <input
+            id="foto"
+            type="file"
+            onChange={(e) => {
+              setFoto(e.target.files[0]);
+            }}
+          />
+        </label>
         <label htmlFor="name">
           <FaUser />
           <input
